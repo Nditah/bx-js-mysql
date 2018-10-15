@@ -3,7 +3,7 @@
         const db = require('../connection');
         const Sequelize = require('sequelize')
 
-        module.exports  = db.define('sales', {
+        module.exports  = db.define('buys', {
             amount : Sequelize.DOUBLE,
             standing : Sequelize.ENUM('pending','closed'),
             created_at : Sequelize.DATE,

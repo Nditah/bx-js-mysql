@@ -1,60 +1,59 @@
  
         const joi = require('joi');
-        const Trades = require('../models/trades')
+        const Buys = require('../models/buys')
 
 
         module.exports =  class {
             
             static get createSchema(){
                 return joi.object().keys( {
-                    kind : joi.string().valid('buy','sell').required(),
                     amount : joi.number().positive().precision(2).required()
                 })
             }
 
             static create(req, res, next){
-                Trades.create(req.body)
-                .then(trades => res.json(trades), next)
+                Buys.create(req.body)
+                .then(buys => res.json(buys), next)
                 .catch(next)
             }
 
             static get updateSchema(){
                 return joi.object().keys({
-                    kind : joi.string().valid('buy','sell')
+                    amount : joi.number().positive().precision(2)
                 })
             }
 
             static update(req, res, next){
-                Trades.update(req.body,{
-                    where : {id : req.params.trade}
+                Buys.update(req.body,{
+                    where : {id : req.params.buy}
                 })
-                .then(([trade]) => res.json(Boolean(trade).valueOf()), next)
+                .then(([buy]) => res.json(Boolean(buy).valueOf()), next)
                 .catch(next)
             }
 
             static delete(req, res, next){
-                Trades.destroy({
+                Buys.destroy({
                     where : {
-                        id : req.params.trade
+                        id : req.params.buy
                     }
                 })
-                .then(trade => res.json(Boolean(trade).valueOf()), next)
+                .then(buy => res.json(Boolean(buy).valueOf()), next)
                 .catch(next)
             }
 
             static get(req, res, next){
-                Trades.findAll({
+                Buys.findAll({
                     limit : req.query.limit,
                     offset : req.query.offset,
                     order : [['created_at','ASC']],
                 })
-                .then(trade => res.json(trade), next)
+                .then(buy => res.json(buy), next)
                 .catch(next)
             }
 
             static getOne(req, res, next){
-                Trades.findById(req.params.trade)
-                .then(trade => res.json(trade), next)
+                Buys.findById(req.params.Sale)
+                .then(buy => res.json(buy), next)
                 .catch(next)
             }
         }
